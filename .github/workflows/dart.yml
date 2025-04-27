@@ -49,3 +49,14 @@ jobs:
       with:
         name: app-release-aab
         path: build/app/outputs/bundle/release/app-release.aab
+
+    - name: Create GitHub Release
+      uses: softprops/action-gh-release@v2
+      with:
+        name: "Release - ${{ github.run_number }}"
+        tag_name: "v${{ github.run_number }}"
+        files: |
+          build/app/outputs/flutter-apk/app-release.apk
+          build/app/outputs/bundle/release/app-release.aab
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
