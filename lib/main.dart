@@ -5,8 +5,6 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 void main() async {
   FlutterError.onError = (FlutterErrorDetails details) {
     FlutterError.presentError(details);
-    // You can log the error to a service or file
-    // print('Caught Flutter Error: ${details.exception}');
   };
   await dotenv.load(fileName: ".env");
   runApp(SmartStudyApp());

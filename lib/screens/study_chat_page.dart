@@ -28,11 +28,8 @@ class StudyChatPageState extends State<StudyChatPage> {
 
     final aiReply = await GeminiService.chatWithAI(userInput);
 
-    // Clean up bullet points
-    final cleanedReply = aiReply.replaceAll(RegExp(r'^\s*[-*+]\s+', multiLine: true), '');
-
     setState(() {
-      _messages.add({'sender': 'ai', 'text': cleanedReply});
+      _messages.add({'sender': 'ai', 'text': aiReply});
       _isLoading = false;
     });
   }
