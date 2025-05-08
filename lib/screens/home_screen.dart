@@ -1,13 +1,37 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'login_screen.dart';
 import 'input_screen.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
+
+  @override
+  HomeScreenState createState() => HomeScreenState();
+}
+
+class HomeScreenState extends State<HomeScreen> {
+  final _storage = const FlutterSecureStorage();
+  bool _isFirstTime = true; // Assume first time initially
+
+  @override
+  void initState() {
+    super.initState();
+    _checkFirstTime();
+  }
+
+  Future<void> _checkFirstTime() async {
+    final isLoggedIn = await _storage.read(key: 'isLoggedIn');
+    setState(() {
+      _isFirstTime = isLoggedIn == null || isLoggedIn != 'true';
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      backgroundColor: Color(0xFFE0D6FE),
+      backgroundColor: const Color(0xFFE0D6FE),
       body: Stack(
         children: [
           Padding(
@@ -21,30 +45,39 @@ class HomeScreen extends StatelessWidget {
                   height: 250,
                   fit: BoxFit.contain,
                 ),
-                SizedBox(height: 30),
-                Text(
+                const SizedBox(height: 30),
+                const Text(
                   'Smart Study Planner',
                   style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
                 ),
-                SizedBox(height: 20),
-                Text(
+                const SizedBox(height: 20),
+                const Text(
                   'Plan your studies with AI and track your progress smartly!',
                   textAlign: TextAlign.center,
                   style: TextStyle(fontSize: 16),
                 ),
-                SizedBox(height: 40),
+                const SizedBox(height: 40),
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.deepPurple[50],
-                    padding: EdgeInsets.symmetric(horizontal: 30, vertical: 12),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                    backgroundColor: Colors.white,
+                    padding:
+                    const EdgeInsets.symmetric(horizontal: 40, vertical: 12),
                   ),
                   onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => InputScreen()),
-                    );
+                    if (_isFirstTime) {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (_) => const LoginScreen()));
+                    } else {
+                      Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                              builder: (_) => const InputScreen()));
+                    }
                   },
-                  child: Text('Get Started'),
+                  child: Text(_isFirstTime ? 'Get Started' : 'Let\'s Plan',style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),),
                 ),
               ],
             ),

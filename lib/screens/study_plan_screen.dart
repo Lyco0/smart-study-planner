@@ -4,11 +4,13 @@ import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'study_chat_page.dart';
-import 'package:flutter/services.dart';
+import '../widgets/study_plan_popup_menu.dart';
+
 
 class StudyPlanScreen extends StatefulWidget {
   final String subject;
   final List<String> topicList;
+  final DateTime studyDate;
   final TimeOfDay startTime;
   final TimeOfDay endTime;
 
@@ -16,6 +18,7 @@ class StudyPlanScreen extends StatefulWidget {
     super.key,
     required this.subject,
     required this.topicList,
+    required this.studyDate,
     required this.startTime,
     required this.endTime,
   });
@@ -29,6 +32,7 @@ class StudyPlanScreenState extends State<StudyPlanScreen> {
   bool isLoading = true;
   bool _isDisposed = false; // Add this
 
+  String planName = 'My Study Plan';
   @override
   void initState() {
     super.initState();
@@ -46,25 +50,43 @@ class StudyPlanScreenState extends State<StudyPlanScreen> {
   }
 
   Future<void> generateStudyPlan() async {
+    final today = DateTime.now();
+    final formattedToday = "${today.year}-${today.month.toString().padLeft(2, '0')}-${today.day.toString().padLeft(2, '0')}";
+    final formattedDeadline = "${widget.studyDate.year}-${widget.studyDate.month.toString().padLeft(2, '0')}-${widget.studyDate.day.toString().padLeft(2, '0')}";
     final formattedStartTime = widget.startTime.format(context);
     final formattedEndTime = widget.endTime.format(context);
 
     final prompt = '''
 Create a detailed study plan for the subject "${widget.subject}" covering the following topics: ${widget.topicList.join(', ')}.
-The study plan should be within the time range of $formattedStartTime and $formattedEndTime.
-Make sure the plan is student-friendly, realistic, and clear. Also check for the topics and Subject if it's real or not. If the subject and topics do not correspond to any known subject or topic, then don't create any plan.
+The study plan should be within the date and time range of $formattedStartTime, $formattedEndTime, $formattedToday and $formattedDeadline
+Make sure the plan is student-friendly, realistic, and clear. 
+
+Details:
+- 📚 Subject: "${widget.subject}"
+- 📝 Topics: ${widget.topicList.join(', ')}
+- 📅 Study Start Date: $formattedToday
+- 📅 Deadline Date: $formattedDeadline
+- ⏰ Daily Study Time: $formattedStartTime to $formattedEndTime
+
+Instructions:
+- The plan must start from $formattedToday and end on $formattedDeadline.
+- Spread out the topics intelligently over the available days.
+- Ensure the time spent per day does not exceed the provided range.
+- Validate the subject and topics. If they are invalid or unrelated, do not generate a plan and return a polite message.
+- Don't use columns and rows to display the plan.
 ''';
+
 
     try {
       final response = await GeminiService.generatePlan(prompt);
-      if (_isDisposed) return; // Don't update state if disposed
+      if (_isDisposed) return;
 
       setState(() {
         aiPlan = response;
         isLoading = false;
       });
     } catch (e) {
-      if (_isDisposed) return; // Don't update state if disposed
+      if (_isDisposed) return;
       setState(() {
         aiPlan = '❌ Failed to generate plan. Please try again.';
         isLoading = false;
@@ -75,7 +97,23 @@ Make sure the plan is student-friendly, realistic, and clear. Also check for the
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Your Study Plan'), backgroundColor: const Color(0xFFE0D6FE)),
+      appBar: AppBar(title: Text(planName), backgroundColor: const Color(0xFFE0D6FE),
+        actions: [
+        StudyPlanPopupMenu(
+        currentPlanName: planName,
+        subject: widget.subject,
+        topics: widget.topicList,
+        planMarkdown: aiPlan,
+        startTime: widget.startTime,
+        endTime: widget.endTime,
+        onRename: (newName) {
+          setState(() {
+            planName = newName;
+          });
+        },
+      ),
+      ],
+      ),
       backgroundColor: const Color(0xFFE0D6FE),
       body: Stack(
         children: [
@@ -175,18 +213,6 @@ Make sure the plan is student-friendly, realistic, and clear. Also check for the
               children: [
                 FloatingActionButton(
                   onPressed: () {
-                    Clipboard.setData(ClipboardData(text: aiPlan));
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text('Study plan copied to clipboard!')),
-                    );
-                  },
-                  backgroundColor: Colors.deepPurple[200],
-                  tooltip: 'Copy Plan',
-                  child: const Icon(Icons.copy),
-                ),
-                const SizedBox(width: 16), // Add some spacing between the buttons
-                FloatingActionButton(
-                  onPressed: () {
                     Navigator.push(
                       context,
                       MaterialPageRoute(builder: (context) => StudyChatPage()),
@@ -204,4 +230,3 @@ Make sure the plan is student-friendly, realistic, and clear. Also check for the
     );
   }
 }
-

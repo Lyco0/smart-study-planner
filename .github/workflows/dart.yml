@@ -1,9 +1,6 @@
-# This workflow uses actions that are not certified by GitHub.
-# They are provided by a third-party and are governed by
-# separate terms of service, privacy policy, and support
-# documentation.
-
-name: Dart
+env:
+  APP_VERSION: 1.4.0  #Change the version name here before pushing to build
+name: Build and Release PrepAI
 
 on:
   push:
@@ -26,6 +23,16 @@ jobs:
       with:
         flutter-version: '3.29.3' # Use your Flutter version
 
+    - name: Cache Flutter dependencies
+      uses: actions/cache@v3
+      with:
+        path: |
+          ~/.pub-cache
+        key: ${{ runner.os }}-flutter-${{ hashFiles('**/pubspec.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-flutter-
+
+
     - name: Install dependencies
       run: flutter pub get
 
@@ -38,25 +45,30 @@ jobs:
     - name: Build AAB (Android App Bundle)
       run: flutter build appbundle --release
 
+    - name: Rename artifacts
+      run: |
+        mv build/app/outputs/flutter-apk/app-release.apk build/app/outputs/flutter-apk/PrepAI-${{ env.APP_VERSION }}.apk
+        mv build/app/outputs/bundle/release/app-release.aab build/app/outputs/bundle/release/PrepAI-${{ env.APP_VERSION }}.aab
+
     - name: Upload APK artifact
       uses: actions/upload-artifact@v4
       with:
-        name: app-release-apk
-        path: build/app/outputs/flutter-apk/app-release.apk
+        name: PrepAI-${{ env.APP_VERSION }}
+        path: build/app/outputs/flutter-apk/PrepAI-${{ env.APP_VERSION }}.apk
 
     - name: Upload AAB artifact
       uses: actions/upload-artifact@v4
       with:
-        name: app-release-aab
-        path: build/app/outputs/bundle/release/app-release.aab
+        name: PrepAI-${{ env.APP_VERSION }}
+        path: build/app/outputs/bundle/release/PrepAI-${{ env.APP_VERSION }}.aab
 
     - name: Create GitHub Release
       uses: softprops/action-gh-release@v2
       with:
-        name: "Release - ${{ github.run_number }}"
-        tag_name: "v${{ github.run_number }}"
+        name: "PrepAI-${{ env.APP_VERSION }}"
+        tag_name: "v${{ env.APP_VERSION }}"
         files: |
-          build/app/outputs/flutter-apk/app-release.apk
-          build/app/outputs/bundle/release/app-release.aab
+          build/app/outputs/flutter-apk/PrepAI-${{ env.APP_VERSION }}.apk
+          build/app/outputs/bundle/release/PrepAI-${{ env.APP_VERSION }}.aab
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
