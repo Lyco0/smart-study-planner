@@ -44,6 +44,11 @@ jobs:
     - name: Build AAB (Android App Bundle)
       run: flutter build appbundle --release
 
+    - name: Rename artifacts
+      run: |
+        mv build/app/outputs/flutter-apk/app-release.apk build/app/outputs/flutter-apk/PrepAI-${{ env.APP_VERSION }}.apk
+        mv build/app/outputs/bundle/release/app-release.aab build/app/outputs/bundle/release/PrepAI-${{ env.APP_VERSION }}.aab
+
     - name: Upload APK artifact
       uses: actions/upload-artifact@v4
       with:
