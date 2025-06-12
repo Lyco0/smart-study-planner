@@ -1,5 +1,7 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'login_screen.dart';
 import 'input_screen.dart';
 
@@ -68,18 +70,57 @@ class HomeScreenState extends State<HomeScreen> {
                   ),
                   onPressed: () {
                     if (_isFirstTime) {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (_) => const LoginScreen()));
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (_) => const LoginScreen()),
+                      );
                     } else {
                       Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                              builder: (_) => const InputScreen()));
+                        context,
+                        MaterialPageRoute(builder: (_) => const InputScreen()),
+                      );
                     }
                   },
-                  child: Text(_isFirstTime ? 'Get Started' : 'Let\'s Plan',style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),),
+                  child: Text(
+                    _isFirstTime ? 'Get Started' : 'Let\'s Plan',
+                    style: const TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
                 ),
               ],
+            ),
+          ),
+
+          // 🔻 Watermark at bottom center
+          Positioned(
+            bottom: 12,
+            left: 0,
+            right: 0,
+            child: Center(
+              child: RichText(
+                text: TextSpan(
+                  style: TextStyle(fontSize: 12, color: Colors.black),
+                  children: [
+                    TextSpan(text: 'Made by '),
+                    TextSpan(
+                      text: 'Pratik Bairagi',
+                      style: TextStyle(
+                        color: const Color(0xFF7143C5),
+                        decoration: TextDecoration.underline,
+                      ),
+                      recognizer: TapGestureRecognizer()
+                        ..onTap = () async {
+                          final url = Uri.parse('https://my-portfolio-rouge-iota-67.vercel.app/');
+                          if (!await launchUrl(url, mode: LaunchMode.platformDefault)) {
+                            throw 'Could not launch $url';
+                          }
+                        },
+                    ),
+                  ],
+                ),
+              ),
             ),
           ),
         ],
