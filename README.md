@@ -7,7 +7,7 @@
 A simple study planner app for those how likes to schedule and create a perfect study plans. By using this app create perfect plans wheneven needed.
 
 
-## Features
+## Features🔧
 
 - User-friendly interface
 - Easy login and sign-up process
@@ -16,17 +16,43 @@ A simple study planner app for those how likes to schedule and create a perfect 
 - AI Chat for your specific plan
 - Custom Date and time options
 
+## Screenshots
 
-## Installation
+<p align="center">
+  <img src="./assets/screenshots/screenshot1.jpg" width="22%" style="margin: 1%" />
+  <img src="./assets/screenshots/screenshot2.jpg" width="22%" style="margin: 1%" />
+  <img src="./assets/screenshots/screenshot3.jpg" width="22%" style="margin: 1%" />
+  <img src="./assets/screenshots/screenshot4.jpg" width="22%" style="margin: 1%" />
+</p>
 
-Install and use my project on your own pc/mobile phone.
+
+## Installation/How to run this app locally on your pc.📲
+
+For someone just want the app on their handheld devices just follow the steps given below.🫵
+
+- ️Download the latest Release on your Mobile phone or Tablet and install it.
+
+Here are some important points to remember while using this app.‼️
+
+- The app uses yours phone storage to save your plans and Login credential.
+- Once you created your account the app stays logged in. 
+- But if needed you can clear the app's cache which will remove all your saved plans and login credential.
+
+<p align="center">
+  <img src="./assets/screenshots/info1.jpg" width="22%" style="margin: 1%" />
+  <img src="./assets/screenshots/info2.jpg" width="22%" style="margin: 1%" />
+  <img src="./assets/screenshots/info3.jpg" width="22%" style="margin: 1%" />
+</p>
+
+## Installing and running on your own pc.💻
+Install and use my project on your own pc for making changes or just to have fun.
 "Recommended to use android studio with flutter packages."
 https://youtu.be/mMeQhLGD-og?feature=shared 👈 refer this yt video for installing flutter with android studio
 
 ```
 Create an .env file and paste your API key and API url as
-API_KEY=
-API_URL=https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent
+API_KEY=AIc............
+API_URL=https://generativelan............
 ```
 https://aistudio.google.com/apikey 👈 get your own gemini API key and API url
 ```
@@ -54,21 +80,10 @@ Of course i won't tell each and every steps. Just watch the video.
 - [Google AI Studio](https://aistudio.google.com/)
 - [Dart](https://dart.dev/)
 
-## Screenshots
-
-<p align="center">
-  <img src="./assets/screenshots/screenshot1.jpg" width="22%" style="margin: 1%" />
-  <img src="./assets/screenshots/screenshot2.jpg" width="22%" style="margin: 1%" />
-  <img src="./assets/screenshots/screenshot3.jpg" width="22%" style="margin: 1%" />
-  <img src="./assets/screenshots/screenshot4.jpg" width="22%" style="margin: 1%" />
-</p>
-
 
 ## Contributing
 
 Contributions are always welcome!
-
-Please adhere to this project's `code of conduct`.
 
 
 ## Authors
