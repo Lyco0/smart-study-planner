@@ -65,9 +65,9 @@ flutter clean
 flutter pub get
 flutter pub run flutter_native_splash:create
 ```
-It's read to run.
+It's ready to run.
 
-And I think if you are undestanding what ever i have written above, then i guess you know how to run your applcation on android studio.
+And I think if you are understanding what ever i have written above, then i guess you know how to run your application on android studio.
 
 If not no worry here is how to do it.
 https://youtu.be/oESs0FV1AVg?feature=shared
