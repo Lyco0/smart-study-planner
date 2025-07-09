@@ -7,27 +7,27 @@
 </h1>
 <p align="center">
   <a>
-    <img src="https://img.shields.io/badge/Dart-0175C2?style=for-the-badge&logo=dart&logoColor=white"
+    <img src="https://img.shields.io/badge/Dart-0175C2?style=flat&logo=dart&logoColor=white"
       alt="DART" />
   </a>
   
   <a>
-    <img src="https://img.shields.io/badge/Flutter-02569B?style=for-the-badge&logo=flutter&logoColor=white"
+    <img src="https://img.shields.io/badge/Flutter-02569B?style=flat&logo=flutter&logoColor=white"
       alt="Flutter" />
   </a>
   
   <a>
-    <img src="https://img.shields.io/badge/Android%20Studio-3DDC84?style=for-the-badge&logo=androidstudio&logoColor=white"
+    <img src="https://img.shields.io/badge/Android%20Studio-3DDC84?style=flat&logo=androidstudio&logoColor=white"
       alt="Android studio" />
   </a>
   
   <a>
-    <img src="https://img.shields.io/badge/Gemini-4285F4?style=for-the-badge&logo=google&logoColor=white"
+    <img src="https://img.shields.io/badge/Gemini-4285F4?style=flat&logo=google&logoColor=white"
       alt="Google" />
   </a>
   
   <a>
-    <img src="https://img.shields.io/badge/Google%20AI%20Studio-34A853?style=for-the-badge&logo=google&logoColor=white"
+    <img src="https://img.shields.io/badge/Google%20AI%20Studio-34A853?style=flat&logo=google&logoColor=white"
       alt="Google" />
   </a>
   
