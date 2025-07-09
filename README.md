@@ -2,7 +2,36 @@
   <img src="./assets/screenshots/banner.png" width="100%">
 </p>
 
-# Smart Study Planner App
+<h1 align="center" style="font-family: Arial, sans-serif; color: #FF6F61; text-shadow: 2px 2px 4px rgba(0,0,0,0.5);">
+  Smart study planner
+</h1>
+<p align="center">
+  <a>
+    <img src="https://img.shields.io/badge/Dart-0175C2?style=for-the-badge&logo=dart&logoColor=white"
+      alt="DART" />
+  </a>
+  
+  <a>
+    <img src="https://img.shields.io/badge/Flutter-02569B?style=for-the-badge&logo=flutter&logoColor=white"
+      alt="Flutter" />
+  </a>
+  
+  <a>
+    <img src="https://img.shields.io/badge/Android%20Studio-3DDC84?style=for-the-badge&logo=androidstudio&logoColor=white"
+      alt="Android studio" />
+  </a>
+  
+  <a>
+    <img src="https://img.shields.io/badge/Gemini-4285F4?style=for-the-badge&logo=google&logoColor=white"
+      alt="Google" />
+  </a>
+  
+  <a>
+    <img src="https://img.shields.io/badge/Google%20AI%20Studio-34A853?style=for-the-badge&logo=google&logoColor=white"
+      alt="Google" />
+  </a>
+  
+</p>
 
 A simple study planner app for those how likes to schedule and create a perfect study plans. By using this app create perfect plans wheneven needed.
 
@@ -73,13 +102,6 @@ If not no worry here is how to do it.
 https://youtu.be/oESs0FV1AVg?feature=shared
 
 Of course i won't tell each and every steps. Just watch the video.
-## 🛠️ Built With
-
-- [Flutter](https://flutter.dev/)
-- [Android Studio](https://developer.android.com/)
-- [Google AI Studio](https://aistudio.google.com/)
-- [Dart](https://dart.dev/)
-
 
 ## Contributing
 
